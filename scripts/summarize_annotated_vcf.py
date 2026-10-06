@@ -33,7 +33,7 @@ def summarize_vcf(vcf_file,output_file):
                 if line[0] != '#CHROM' or line[1] != 'POS' or line[8] != 'FORMAT':
                     raise ValueError('Unexpected VCF column headers')
                 isolate_names = line[9:]
-                _ = fh_out.write('CHROM\tPOS\tREF\tALT\tANN_GENE\tANN_DESC\tANN_CATEGORY\tANN_NOTE\t' + '\t'.join(isolate_names) + '\n')
+                _ = fh_out.write('CHROM\tPOS\tREF\tALT\tANN_FEATURE\tANN_GENE\tANN_DESC\tANN_CATEGORY\tANN_NOTE\t' + '\t'.join(isolate_names) + '\n')
             else:
                 line = line.rstrip().split('\t')
                 CHROM = line[0]
@@ -51,13 +51,14 @@ def summarize_vcf(vcf_file,output_file):
                     new_ann_data_list = new_ann_data.split('|')
                     if IMPACT_RANK[new_ann_data_list[2]] > IMPACT_RANK[ANN_DATA[2]]:
                         ANN_DATA = new_ann_data_list
+                ANN_FEATURE = ANN_DATA[6]
                 ANN_GENE = ANN_DATA[3]
                 ANN_DESC = ANN_DATA[1]
                 ANN_CATEGORY = ANN_DATA[2]
                 ANN_NOTE = ANN_DATA[-1]
                 if ANN_NOTE == '':
                     ANN_NOTE = 'NA'
-                towrite = '\t'.join([CHROM,POS,REF,ALT,ANN_GENE,ANN_DESC,ANN_CATEGORY,ANN_NOTE] + ISOL_DATA) + '\n'
+                towrite = '\t'.join([CHROM,POS,REF,ALT,ANN_FEATURE,ANN_GENE,ANN_DESC,ANN_CATEGORY,ANN_NOTE] + ISOL_DATA) + '\n'
                 _ = fh_out.write(towrite)
                 
                 
