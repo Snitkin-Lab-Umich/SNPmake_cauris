@@ -5,7 +5,7 @@
 # the upstream steps will be edited to split the vcf files, such that final_raw_snp_vcf contains only SNPs
 # I may also need to change some of the filtering parameters, since I used the multiallelic caller rather than the consensus caller
 
-rule variant_hard_filter:
+rule bcftools_variant_qc:
     input:
         norm_vcf_gz = "results/{prefix}/bcftools_varcall/{sample}/{sample}_aln_mpileup_raw_norm.vcf.gz",
         norm_vcf_tbi = "results/{prefix}/bcftools_varcall/{sample}/{sample}_aln_mpileup_raw_norm.vcf.gz.tbi",

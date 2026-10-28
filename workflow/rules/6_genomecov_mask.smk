@@ -54,7 +54,7 @@ rule combine_scaffold_mask_and_lowcoverage_bed:
         scaffold_mask_bed = "results/{prefix}/bedtools/{prefix}_scaffold_mask.bed",
         lowcoverage_bed_sorted = "results/{prefix}/bedtools/{sample}/{sample}_lowcoverage_temp_sorted.bed",
     output:
-        final_mask_bed = "results/{prefix}/bedtools/{sample}/{sample}_final_mask.bed",
+        final_mask_bed = "results/{prefix}/bedtools/{sample}/{sample}_lowcov_scaffold_mask.bed",
     singularity:
         "docker://staphb/bedtools:2.31.1"
     shell:
@@ -65,11 +65,11 @@ rule combine_scaffold_mask_and_lowcoverage_bed:
 
 rule bedtools_index:
     input:
-        final_mask_bed = "results/{prefix}/bedtools/{sample}/{sample}_final_mask.bed",
+        final_mask_bed = "results/{prefix}/bedtools/{sample}/{sample}_lowcov_scaffold_mask.bed",
     output:
-        final_mask_bed_gz = "results/{prefix}/bedtools/{sample}/{sample}_final_mask.bed.gz",
-        final_mask_bed_gz_tbi = "results/{prefix}/bedtools/{sample}/{sample}_final_mask.bed.gz.tbi",
-        final_mask_header = "results/{prefix}/bedtools/{sample}/{sample}_final_mask_header.hdr",
+        final_mask_bed_gz = "results/{prefix}/bedtools/{sample}/{sample}_lowcov_scaffold_mask.bed.gz",
+        final_mask_bed_gz_tbi = "results/{prefix}/bedtools/{sample}/{sample}_lowcov_scaffold_mask.bed.gz.tbi",
+        final_mask_header = "results/{prefix}/bedtools/{sample}/{sample}_lowcov_scaffold_mask_header.hdr",
     singularity:
         "docker://staphb/bcftools:1.23.1"
     shell:

@@ -8,13 +8,13 @@ rule flag_indel_prox_snps:
     params:
         indel_prox_window = config["indel_prox_window"],
     benchmark: 
-        "benchmarks/{prefix}/remove_5bp_snp_flanking_to_indels/{sample}.benchmark.tsv"
+        "benchmarks/{prefix}/indel_prox_snps/{sample}.benchmark.tsv"
     threads: 1
     resources:
         mem_mb=1000,
         runtime=60
     wrapper:
-        "file:workflow/wrapper_functions/remove_5_bp_snp_flanking_to_indels"
+        "file:workflow/wrapper_functions/indel_prox_snps"
 
 
 rule bgzip_and_index_indelprox_vcf:

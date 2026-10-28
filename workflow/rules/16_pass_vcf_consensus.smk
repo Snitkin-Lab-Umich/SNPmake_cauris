@@ -13,16 +13,16 @@ rule build_all_fail_bed:
             runtime=10
     shell:
         """
-        ### Note that only SNPs are included here!!
-        bcftools query -i 'FILTER!="PASS" && TYPE="snp" && GT="alt"' -f '%CHROM\t%POS0\t%POS\n' {input.vcf_indelprox_lowcov} > {output.all_fail_bed}
+        # note that this includes both SNPs and indels
+        bcftools query -i 'FILTER!="PASS" && GT="alt"' -f '%CHROM\t%POS0\t%END\n' {input.vcf_indelprox_lowcov} > {output.all_fail_bed}
         """
 
 
 rule combine_bed_masks:
     input:
         all_fail_bed = "results/{prefix}/bedtools/{sample}/{sample}_all_fail.bed",
-        lowcoverage_bed = "results/{prefix}/bedtools/{sample}/{sample}_final_mask.bed.gz",
-        lowcoverage_bed_tbi = "results/{prefix}/bedtools/{sample}/{sample}_final_mask.bed.gz.tbi",
+        lowcoverage_bed = "results/{prefix}/bedtools/{sample}/{sample}_lowcov_scaffold_mask.bed.gz",
+        lowcoverage_bed_tbi = "results/{prefix}/bedtools/{sample}/{sample}_lowcov_scaffold_mask.bed.gz.tbi",
         sorted_cohort_fail_bed = "results/{prefix}/consensus/{prefix}_cohort_fail_sorted.bed",
     output:
         final_bed = "results/{prefix}/bedtools/{sample}/{sample}_final.bed",
@@ -62,7 +62,7 @@ rule consensus_fasta:
     shell:
         """
 
-        ### Note that the command below extracts only SNPs!! Indels will not be included in the final vcf or fasta file.
+        ### Note that the command below extracts only SNPs!! Indels will not be included in this file.
         bcftools view -f PASS -v snps -i 'GT="alt"' -T ^{input.final_bed} -Oz -o {output.vcf_consensus} {input.vcf_indelprox_lowcov}
         bcftools index -f -t {output.vcf_consensus}
 
