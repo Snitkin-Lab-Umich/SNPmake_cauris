@@ -85,10 +85,10 @@ rule indel_vcf:
     input:
         vcf_indelprox_lowcov="results/{prefix}/filtered_vcf/{sample}/{sample}_bcftools_filtered_indelprox_lowcov.vcf.gz",
         vcf_indexprox_lowcov_tbi="results/{prefix}/filtered_vcf/{sample}/{sample}_bcftools_filtered_indelprox_lowcov.vcf.gz.tbi",
-        #final_bed = "results/{prefix}/bedtools/{sample}/{sample}_final.bed",
+        final_bed = "results/{prefix}/bedtools/{sample}/{sample}_final.bed",
         #ref_genome = config["reference_genome"],
-        lowcoverage_bed = "results/{prefix}/bedtools/{sample}/{sample}_final_mask.bed.gz",
-        lowcoverage_bed_tbi = "results/{prefix}/bedtools/{sample}/{sample}_final_mask.bed.gz.tbi",
+        #lowcoverage_bed = "results/{prefix}/bedtools/{sample}/{sample}_final_mask.bed.gz",
+        #lowcoverage_bed_tbi = "results/{prefix}/bedtools/{sample}/{sample}_final_mask.bed.gz.tbi",
     output:
         indel_vcf = "results/{prefix}/consensus/{sample}/{sample}_pass_indel_only.vcf.gz",
         indel_vcf_tbi = "results/{prefix}/consensus/{sample}/{sample}_pass_indel_only.vcf.gz.tbi",
