@@ -104,7 +104,7 @@ rule indel_vcf:
         """
 
         ### Note that the command below extracts only indels!! SNPs are in a separate output file
-        bcftools view -f PASS -v indels -i 'GT="alt"' -T ^{input.lowcoverage_bed} -Oz -o {output.indel_vcf} {input.vcf_indelprox_lowcov}
+        bcftools view -f PASS -v indels -i 'GT="alt"' -T ^{input.final_bed} -Oz -o {output.indel_vcf} {input.vcf_indelprox_lowcov}
         bcftools index -f -t {output.indel_vcf}
         """
 
