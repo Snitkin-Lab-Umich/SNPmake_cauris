@@ -14,7 +14,7 @@ rule annotate_low_coverage_variants:
         "docker://staphb/bcftools:1.23.1"
     shell:
         """
-        bcftools annotate -a {input.lowcoverage_bed} -h {input.lowcoverage_header} -c CHROM,FROM,TO,+FILTER -Oz -o {output.vcf_indelprox_lowcov} {input.vcf_indelprox}
+        bcftools annotate -a {input.lowcoverage_bed} -h {input.lowcoverage_header} -c CHROM,FROM,TO,=FILTER -Oz -o {output.vcf_indelprox_lowcov} {input.vcf_indelprox}
         bcftools index -t {output.vcf_indelprox_lowcov}
         """
 
