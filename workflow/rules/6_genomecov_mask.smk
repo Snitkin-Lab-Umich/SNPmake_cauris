@@ -21,7 +21,7 @@ rule bedtools_genomecov:
         "benchmarks/{prefix}/bedtools_coverage/{sample}.benchmark.tsv"
     shell:
         """
-        bedtools genomecov -ibam {input.index_sorted_dups_rmvd_bam} -bga > {output.genomecov_bed_temp}
+        bedtools genomecov -ibam {input.index_sorted_dups_rmvd_bam} -bga -ignoreD > {output.genomecov_bed_temp}
         gzip -c {output.genomecov_bed_temp} > {output.genomecov_bed}
         awk -v threshold={params.coverage_threshold} -v label={params.filter_label} 'BEGIN {{OFS="\t"}} $4 < threshold {{print $1, $2, $3, label}}' {output.genomecov_bed_temp} > {output.lowcoverage_bed_temp}
         bedtools sort -i {output.lowcoverage_bed_temp} > {output.lowcoverage_bed_sorted}
