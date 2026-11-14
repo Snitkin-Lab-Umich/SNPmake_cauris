@@ -18,7 +18,7 @@ rule align_reads:
     threads: 8
     resources:
         mem_mb=3000,
-        runtime=15
+        runtime=45
     shell:
         r"""
         set -euo pipefail
