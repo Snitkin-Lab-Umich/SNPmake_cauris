@@ -52,7 +52,7 @@ def make_coverage_matrix(input_dir,panaroo_matrix,reference_gff,reference_name,o
     for sample in summary_matrix.columns:
         if sample == 'Gene' or sample == 'reference_gene':
             continue
-        bedcov_file = os.path.join(input_dir,f"filtered_vcf/{sample}_GenomeCoverage.bedgraph.gz")
+        bedcov_file = os.path.join(input_dir,'filtered_vcf',sample,f'{sample}_GenomeCoverage.bedgraph.gz')
         if not os.path.exists(bedcov_file):
             # drop this sample from the summary matrix
             summary_matrix.drop(columns=[sample],inplace=True)
